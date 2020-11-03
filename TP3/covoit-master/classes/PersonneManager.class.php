@@ -9,7 +9,7 @@ class PersonneManger{
           $requete = $this->db->prepare(
           'INSERT INTO ville (vil_num, vil_nom) VALUES (:vil_num, :vil_nom);');
 
-          $requete->bindValue(':vil_num',$personne->getVilleNum());
+          $requete->bindValue(':pers_num',$personne->getVilleNum());
           $requete->bindValue(':vil_nom',$personne->getVilleNom());
           $retour=$requete->execute();
           return $retour;
