@@ -10,7 +10,7 @@ class PersonneManger{
           'INSERT INTO ville (vil_num, vil_nom) VALUES (:vil_num, :vil_nom);');
 
           $requete->bindValue(':pers_num',$personne->getVilleNum());
-          $requete->bindValue(':vil_nom',$personne->getVilleNom());
+          $requete->bindValue(':pers_nom',$personne->getVilleNom());
           $retour=$requete->execute();
           return $retour;
       }
