@@ -1,5 +1,5 @@
 
-<h1>Lister des parcours proposés</h1>
+<h1>Liste des parcours proposés</h1>
 <?php
   $db = new MyPdo();
   $parcoursManager = new ParcoursManager($db);
@@ -8,7 +8,7 @@
 
 ?>
 <?php
-echo "Actuellement ".$compteur." parcour(s) sont enregistré(s)"
+echo "Actuellement ".$compteur." parcour(s) enregistré(s)"
  ?>
 
  <table>

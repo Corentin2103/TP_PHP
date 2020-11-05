@@ -70,12 +70,12 @@ public function getPersLogin() {
 public function setPersLogin($valeur){
 				$this->per_login=$valeur;
 		}
-/*PASSWORD*/						
+/*PASSWORD*/
 public function getPersPwd() {
 				return $this->per_pwd;
   	}
 public function setPersPwd($valeur){
-				$this->per_pwd=$valeur;
+				$this->per_pwd=sha1(sha1($valeur).SALT);
 		}
 }
 ?>

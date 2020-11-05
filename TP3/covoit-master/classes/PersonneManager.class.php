@@ -1,5 +1,5 @@
 <?php
-class PersonneManger{
+class PersonneManager{
   private $dbo;
 
 		public function __construct($db){
@@ -7,37 +7,42 @@ class PersonneManger{
 		}
     public function add($personne){
           $requete = $this->db->prepare(
-          'INSERT INTO ville (vil_num, vil_nom) VALUES (:vil_num, :vil_nom);');
+          'INSERT INTO personne (per_num, per_nom,per_prenom,per_tel,per_mail,per_login,per_pwd) VALUES (:per_num, :per_nom, :per_prenom, :per_tel, :per_mail, :per_login, :per_pwd);');
 
-          $requete->bindValue(':pers_num',$personne->getVilleNum());
-          $requete->bindValue(':pers_nom',$personne->getVilleNom());
+          $requete->bindValue(':per_num',$personne->getPersNum());
+          $requete->bindValue(':per_nom',$personne->getPersNom());
+          $requete->bindValue(':per_prenom',$personne->getPersPrenom());
+          $requete->bindValue(':per_tel',$personne->getPersTel());
+          $requete->bindValue(':per_mail',$personne->getPersMail());
+          $requete->bindValue(':per_login',$personne->getPersLogin());
+          $requete->bindValue(':per_pwd',$personne->getPersPwd());
           $retour=$requete->execute();
           return $retour;
       }
-    public function getAllVille(){
-            $listeVille = array();
+    public function getAllPers(){
+            $listePers = array();
 
-            $sql = 'select vil_num, vil_nom FROM ville';
+            $sql = 'select per_num, per_nom , per_prenom FROM personne';
 
             $requete = $this->db->prepare($sql);
             $requete->execute();
 
-            while ($ville = $requete->fetch(PDO::FETCH_OBJ))
-                $listeVille[] = new Ville($ville);
+            while ($personne = $requete->fetch(PDO::FETCH_OBJ))
+                $listePers[] = new Personne($personne);
 
             $requete->closeCursor();
-            return $listeVille;
+            return $listePers;
 					}
-    public function getVilleRentree(){
-      $listeVille = array();
+    public function getPersRentree(){
+      $listePers = array();
       $compteur =0;
-      $sql = 'select vil_num, vil_nom FROM ville';
+      $sql = 'select per_num, per_nom , per_prenom FROM personne';
 
       $requete = $this->db->prepare($sql);
       $requete->execute();
 
-      while ($ville = $requete->fetch(PDO::FETCH_OBJ)){
-          $listeVille[] = new Ville($ville);
+      while ($personne = $requete->fetch(PDO::FETCH_OBJ)){
+          $listePers[] = new Personne($personne);
           $compteur = $compteur + 1;
         }
       $requete->closeCursor();

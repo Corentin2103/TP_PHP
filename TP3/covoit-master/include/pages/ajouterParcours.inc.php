@@ -34,7 +34,7 @@
           </select>
 
 
-            Nombre de kilomètre(s) : <input type="text" id="par_km" name="par_km"></br>
+            Nombre de kilomètre(s) : <input type="number" id="par_km" name="par_km"></br>
             <input type="submit" id="Valider" value="Valider">
 
   </form>

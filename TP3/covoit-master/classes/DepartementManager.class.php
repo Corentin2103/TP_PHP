@@ -1,4 +1,48 @@
-<?php //A COMPLETER
+<?php
 class DepartementManager{
-	
+  private $dbo;
+
+		public function __construct($db){
+			$this->db = $db;
+		}
+    public function add($departement){
+          $requete = $this->db->prepare(
+          'INSERT INTO division (dep_num, dep_nom,vil_num) VALUES (:dep_num, :dep_nom,:vil_num);');
+
+          $requete->bindValue(':dep_num',$departement->getDepNum());
+          $requete->bindValue(':dep_nom',$departement->getDepNom());
+					$requete->bindValue(':vil_num',$departement->getVilleNum());
+
+          $retour=$requete->execute();
+          return $retour;
+      }
+    public function getAllDep(){
+            $listeDep = array();
+
+            $sql = 'select dep_num, dep_nom,vil_num FROM departement';
+
+            $requete = $this->db->prepare($sql);
+            $requete->execute();
+
+            while ($departement = $requete->fetch(PDO::FETCH_OBJ))
+                $listeDep[] = new Departement($departement);
+
+            $requete->closeCursor();
+            return $listeDep;
+					}
+    public function getDepRentre(){
+      $listeDep = array();
+      $compteur =0;
+  		$sql = 'select dep_num, dep_nom,vil_num FROM departement';
+
+      $requete = $this->db->prepare($sql);
+      $requete->execute();
+
+      while ($departement = $requete->fetch(PDO::FETCH_OBJ)){
+          $listeDep[] = new Departement($departement);
+          $compteur = $compteur + 1;
+        }
+      $requete->closeCursor();
+      return $compteur;
+    }
 }
