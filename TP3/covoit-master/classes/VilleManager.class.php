@@ -43,4 +43,10 @@ class VilleManager{
       $requete->closeCursor();
       return $compteur;
     }
+    public function getVilleNom($vil_num){
+      $sql = 'select vil_nom FROM ville WHERE vil_num= "'.$vil_num.'"';
+      $requete = $this->db->prepare($sql);
+      $requete->execute();
+      return $requete->fetch();
+    }
 }

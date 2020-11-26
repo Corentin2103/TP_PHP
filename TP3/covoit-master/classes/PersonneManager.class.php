@@ -6,10 +6,10 @@ class PersonneManager{
 			$this->db = $db;
 		}
     public function add($personne){
-          $requete = $this->db->prepare(
-          'INSERT INTO personne (per_num, per_nom,per_prenom,per_tel,per_mail,per_login,per_pwd) VALUES (:per_num, :per_nom, :per_prenom, :per_tel, :per_mail, :per_login, :per_pwd);');
 
-          $requete->bindValue(':per_num',$personne->getPersNum());
+          $requete = $this->db->prepare(
+          'INSERT INTO personne (per_nom,per_prenom,per_tel,per_mail,per_login,per_pwd) VALUES (:per_nom, :per_prenom, :per_tel, :per_mail, :per_login, :per_pwd);');
+
           $requete->bindValue(':per_nom',$personne->getPersNom());
           $requete->bindValue(':per_prenom',$personne->getPersPrenom());
           $requete->bindValue(':per_tel',$personne->getPersTel());
@@ -17,7 +17,8 @@ class PersonneManager{
           $requete->bindValue(':per_login',$personne->getPersLogin());
           $requete->bindValue(':per_pwd',$personne->getPersPwd());
           $retour=$requete->execute();
-          return $retour;
+          $num = $this->db->lastInsertID();
+          return $num;
       }
     public function getAllPers(){
             $listePers = array();
@@ -27,9 +28,9 @@ class PersonneManager{
             $requete = $this->db->prepare($sql);
             $requete->execute();
 
-            while ($personne = $requete->fetch(PDO::FETCH_OBJ))
+            while ($personne = $requete->fetch(PDO::FETCH_OBJ)){
                 $listePers[] = new Personne($personne);
-
+              }
             $requete->closeCursor();
             return $listePers;
 					}
@@ -47,5 +48,18 @@ class PersonneManager{
         }
       $requete->closeCursor();
       return $compteur;
+    }
+
+    public function RecupPers($pers_num){
+        $recupPers = array();
+        $sql = 'select per_prenom,per_nom,per_mail,per_tel FROM personne where per_num="'.$pers_num.'"';
+        $requete = $this->db->prepare($sql);
+        $requete->execute();
+        while ($personne = $requete->fetch(PDO::FETCH_ASSOC)){
+            $recupPers[] = $personne;
+          }
+        $requete->closeCursor();
+        return $recupPers;
+
     }
 }

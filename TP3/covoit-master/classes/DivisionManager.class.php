@@ -38,10 +38,11 @@ class DivisionManager{
       $requete->execute();
 
       while ($division = $requete->fetch(PDO::FETCH_OBJ)){
-          $listeDiv[] = new Ville($division);
+          $listeDiv[] = new Division($division);
           $compteur = $compteur + 1;
         }
       $requete->closeCursor();
       return $compteur;
     }
+    
 }

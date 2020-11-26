@@ -45,4 +45,16 @@ class DepartementManager{
       $requete->closeCursor();
       return $compteur;
     }
+    public function getDepartementNom($dep_num){
+      $sql = 'select dep_nom FROM departement WHERE dep_num= "'.$dep_num.'"';
+      $requete = $this->db->prepare($sql);
+      $requete->execute();
+      return $requete->fetch();
+    }
+    public function getVilleNumDep($dep_num){
+      $sql = 'select vil_num FROM departement WHERE dep_num= "'.$dep_num.'"';
+      $requete = $this->db->prepare($sql);
+      $requete->execute();
+      return $requete->fetch();
+    }
 }
