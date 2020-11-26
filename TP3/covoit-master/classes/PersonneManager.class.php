@@ -62,4 +62,20 @@ class PersonneManager{
         return $recupPers;
 
     }
+    public function EstPresent($per_login,$per_pwd){
+      $sql = 'select per_login,per_pwd FROM personne WHERE per_login= "'.$per_login.'"';
+      $requete = $this->db->prepare($sql);
+      $requete->execute();
+
+      while ($personne = $requete->fetch(PDO::FETCH_ASSOC)){
+          if($per_login == $personne['per_login'] && sha1(sha1($per_pwd).SALT) ==$personne['per_pwd']){
+            return true;
+
+            $requete->closeCursor();
+          }
+        }
+        return false;
+      $requete->closeCursor();
+
+    }
 }

@@ -26,7 +26,18 @@
 				Covoiturage de l'IUT,<br />Partagez plus que votre véhicule !!!
 			</div>
 		</div>
+    <?php
+    if(!$_SESSION["estConnecte"]){
+    ?>
     <div id="connect">
       <a href="index.php?page=11">Connexion</a>
     </div>
+    <?php
+  }else{ ?>
+    <div id="connect">
+      Utilisateur : <?php echo $_SESSION["Login"] ?>      <a href="index.php?page=12">Déconnexion</a>
+    </div>
+    <?php
+  }
+    ?>
 	</div>

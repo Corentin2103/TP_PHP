@@ -55,8 +55,10 @@ class SalarieManager{
       while ($salarie = $requete->fetch(PDO::FETCH_ASSOC)){
           if($pers_num == $salarie['per_num']){
             return true;
+            $requete->closeCursor();
           }
         }
+        return false;
       $requete->closeCursor();
 
     }

@@ -55,8 +55,10 @@ class EtudiantManager{
       while ($etudiant = $requete->fetch(PDO::FETCH_ASSOC)){
           if($pers_num == $etudiant['per_num']){
             return true;
+            $requete->closeCursor();
           }
         }
+        return false;
       $requete->closeCursor();
 
     }
