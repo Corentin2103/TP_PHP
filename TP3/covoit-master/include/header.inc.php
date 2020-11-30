@@ -1,4 +1,9 @@
-<?php session_start(); ?>
+<?php session_start();
+
+if(empty($_SESSION["estConnecte"])){
+  $_SESSION["estConnecte"]= false;
+}
+ ?>
 <!doctype html>
 <html lang="fr">
 

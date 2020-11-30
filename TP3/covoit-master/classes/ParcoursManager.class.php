@@ -45,4 +45,37 @@ class ParcoursManager{
       $requete->closeCursor();
       return $compteur;
     }
+
+    public function getSens($vil_num1,$vil_num2){
+      $sql = 'select distinct vil_num1,vil_num2 FROM parcours WHERE vil_num1= "'.$vil_num1.'" or vil_num2="'.$vil_num1.'"';
+      $sql2 = 'select distinct vil_num1,vil_num2 FROM parcours WHERE vil_num1= "'.$vil_num2.'" or vil_num2="'.$vil_num2.'"';
+      $requete = $this->db->prepare($sql);
+      $requete->execute();
+      $requete2 = $this->db->prepare($sql2);
+      $requete2->execute();
+      while ($ville = $requete->fetch(PDO::FETCH_ASSOC)){
+          if($vil_num1 == $ville['vil_num1'] && $vil_num2 == $ville['vil_num2']){
+            return 0;
+            $requete->closeCursor();
+          }
+        }
+        while ($ville2 = $requete2->fetch(PDO::FETCH_ASSOC)){
+            if($vil_num1 == $ville['vil_num2'] && $vil_num2 == $ville['vil_num1']){
+              return 1;
+              $requete2->closeCursor();
+            }
+          }
+    }
+
+    public function getParcours($vil_num1,$pro_sens){
+      if($pro_sens == 0){
+          $sql = 'select distinct par_num FROM parcours WHERE vil_num1= "'.$vil_num1.'"';
+      }
+      if($pro_sens == 1){
+          $sql = 'select distinct par_num FROM parcours WHERE vil_num2= "'.$vil_num1.'"';
+      }
+      $requete = $this->db->prepare($sql);
+      $requete->execute();
+      return $requete->fetch();
+    }
 }

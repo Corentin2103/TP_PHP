@@ -60,7 +60,13 @@ class PersonneManager{
           }
         $requete->closeCursor();
         return $recupPers;
+    }
+    public function RecupPersNum($per_login){
 
+      $sql = 'select per_num FROM personne where per_login="'.$per_login.'"';
+      $requete = $this->db->prepare($sql);
+      $requete->execute();
+      return $requete->fetch();
     }
     public function EstPresent($per_login,$per_pwd){
       $sql = 'select per_login,per_pwd FROM personne WHERE per_login= "'.$per_login.'"';

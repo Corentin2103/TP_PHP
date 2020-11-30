@@ -43,10 +43,43 @@ class VilleManager{
       $requete->closeCursor();
       return $compteur;
     }
+
+
     public function getVilleNom($vil_num){
       $sql = 'select vil_nom FROM ville WHERE vil_num= "'.$vil_num.'"';
       $requete = $this->db->prepare($sql);
       $requete->execute();
       return $requete->fetch();
     }
+
+
+    public function getVille1Parcours(){
+      $listeVille = array();
+      $sql = 'select distinct vil_num, vil_nom FROM ville v ,parcours p where p.vil_num1 =v.vil_num
+                UNION
+              select distinct vil_num, vil_nom FROM ville v ,parcours p where p.vil_num2 =v.vil_num ';
+     $requete = $this->db->prepare($sql);
+     $requete->execute();
+     while ($ville = $requete->fetch(PDO::FETCH_ASSOC))
+         $listeVille[] = $ville;
+
+     $requete->closeCursor();
+     return $listeVille;
+    }
+
+    public function getVille2Parcours($vil_num){
+      $listeVille = array();
+      $sql = 'select distinct vil_num, vil_nom FROM ville v ,parcours p where p.vil_num2 =v.vil_num and p.vil_num1 ="'.$vil_num.'"
+              UNION
+              select distinct vil_num, vil_nom FROM ville v ,parcours p where p.vil_num2 =v.vil_num and p.vil_num2 ="'.$vil_num.'"';
+     $requete = $this->db->prepare($sql);
+     $requete->execute();
+     while ($ville = $requete->fetch(PDO::FETCH_ASSOC))
+         $listeVille[] = $ville;
+
+     $requete->closeCursor();
+     return $listeVille;
+    }
+
+    
 }

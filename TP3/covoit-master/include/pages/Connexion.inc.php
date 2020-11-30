@@ -1,7 +1,7 @@
 
 
 <?php
-$_SESSION["estConnecte"]= false;
+
 $_SESSION["Login"] = "";
 $db = new MyPdo();
 $personneManager = new PersonneManager($db);
@@ -12,11 +12,7 @@ if(!empty($_POST["per_login"]) && !empty($_POST["per_pwd"]) && !empty($_POST["va
   $_SESSION["Login"] = $_POST["per_login"];
   header("Location: index.php");
 }
-if (!empty($_POST["per_login"]) && !empty($_POST["per_pwd"]) && !empty($_POST["validation"])
-    &&  $_POST["validation"]==$_SESSION['result'] && !$personneManager->EstPresent($_POST["per_login"],$_POST["per_pwd"])){
-  echo "yo";
 
-}
 
 //MESSAGE D'ERREUR
 if(empty($_POST["per_login"]) && !empty($_POST["per_pwd"]) && !empty($_POST["validation"]) &&  $_POST["validation"]==$_SESSION['result']){
