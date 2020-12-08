@@ -30,21 +30,7 @@ class DepartementManager{
             $requete->closeCursor();
             return $listeDep;
 					}
-    public function getDepRentre(){
-      $listeDep = array();
-      $compteur =0;
-  		$sql = 'select dep_num, dep_nom,vil_num FROM departement';
-
-      $requete = $this->db->prepare($sql);
-      $requete->execute();
-
-      while ($departement = $requete->fetch(PDO::FETCH_OBJ)){
-          $listeDep[] = new Departement($departement);
-          $compteur = $compteur + 1;
-        }
-      $requete->closeCursor();
-      return $compteur;
-    }
+  
     public function getDepartementNom($dep_num){
       $sql = 'select dep_nom FROM departement WHERE dep_num= "'.$dep_num.'"';
       $requete = $this->db->prepare($sql);

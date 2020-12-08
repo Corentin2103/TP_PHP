@@ -4,7 +4,7 @@
     $db = new MyPdo();
     $personneManager = new PersonneManager($db);
     $listePers = $personneManager -> getAllPers();
-    $compteur = $personneManager -> getPersRentree();
+
     $salarieManager = new SalarieManager($db);
     $etudiantManager = new EtudiantManager($db);
     $fonctionManager = new FonctionManager($db);
@@ -18,7 +18,7 @@
   if(empty($_GET["num_pers"])){ ?>
     <h1>Liste des personnes enregistrées</h1>
     <?php
-  echo "Actuellement ".$compteur." personne(s) enregistrée(s)"
+  echo "Actuellement ".count($listePers)." personne(s) enregistrée(s)"
    ?>
 
    <table>
@@ -37,7 +37,7 @@
   <?php
 
 
-  
+
   }else {
         if ($salarieManager->EstPresent($_GET["num_pers"])){
           $listeSal = $salarieManager->getAllSal();

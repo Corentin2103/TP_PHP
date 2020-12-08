@@ -141,12 +141,77 @@ body{
 label{
 	font-size:12pt;
    font-weight:bold;
+	 margin-right:5px;
+	 margin-left: 15px;
+
+
+}
+#float{
+	float:left;
+	text-align: left;
+	width:55%;
+	margin-left:20%;
+}
+label span {
+    display: inline-block;
+    width: 18%;
+    text-align: left;
+}
+#milieu{
+	margin-left: 30%;
+
+}
+#milieu2{
+	margin-left: 45%;
+
 }
 
 h1{
 	text-shadow:1px 1px 2px #333333;
 }
+p{
 
+	text-shadow:1px 1px 2px #333333;
+}
+td{
+	border:10px;
+
+}
+#input{
+	height:30px;
+	border-radius:10px;
+	border:2px solid #111111;
+	box-shadow:0 0 5px #000000 inset;
+	font-size:18px;
+	text-align:center;
+	margin-bottom: 15px;
+}
+#Valider{
+	color:white;
+	background-color:black;
+	height:35px;
+	width:90px;
+	border-radius:10px;
+	border:2px solid #111111;
+	box-shadow:0 0 5px #000000 inset;
+	margin-top: 15px;
+	font-size:17px;
+	text-align:center;
+}
+table{
+border-collapse:collapse;
+margin-left: auto;
+margin-right: auto;
+margin-bottom: 50px;
+margin-top: 50px;
+
+}
+td {
+ border-width:1px;
+ border-style:solid;
+ border-color:black;
+ width:200px;
+ }
 
 * a:hover{
 

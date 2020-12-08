@@ -29,21 +29,7 @@ class FonctionManager{
             $requete->closeCursor();
             return $listeFonction;
 					}
-    public function getDivRentre(){
-      $listeFonction = array();
-      $compteur =0;
-  		$sql = 'select fon_num,fon_libelle FROM fonction';
-
-      $requete = $this->db->prepare($sql);
-      $requete->execute();
-
-      while ($fonction = $requete->fetch(PDO::FETCH_OBJ)){
-          $listeFonction[] = new Fonction($fonction);
-          $compteur = $compteur + 1;
-        }
-      $requete->closeCursor();
-      return $compteur;
-    }
+    
     public function getRecupFonctionLibelle($fon_num){
 
       $compteur =0;

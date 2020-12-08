@@ -17,7 +17,7 @@ class VilleManager{
     public function getAllVille(){
             $listeVille = array();
 
-            $sql = 'select vil_num, vil_nom FROM ville';
+            $sql = 'select distinct vil_num, vil_nom FROM ville group by vil_nom';
 
             $requete = $this->db->prepare($sql);
             $requete->execute();
@@ -28,21 +28,7 @@ class VilleManager{
             $requete->closeCursor();
             return $listeVille;
 					}
-    public function getVilleRentree(){
-      $listeVille = array();
-      $compteur =0;
-      $sql = 'select vil_num, vil_nom FROM ville';
 
-      $requete = $this->db->prepare($sql);
-      $requete->execute();
-
-      while ($ville = $requete->fetch(PDO::FETCH_OBJ)){
-          $listeVille[] = new Ville($ville);
-          $compteur = $compteur + 1;
-        }
-      $requete->closeCursor();
-      return $compteur;
-    }
 
 
     public function getVilleNom($vil_num){
@@ -51,7 +37,19 @@ class VilleManager{
       $requete->execute();
       return $requete->fetch();
     }
-
+    public function estPresent($vil_nom){
+      $sql ='Select vil_nom from ville';
+      $requete = $this->db->prepare($sql);
+      $requete->execute();
+      while ($ville = $requete->fetch(PDO::FETCH_ASSOC)){
+          if($vil_nom == $ville['vil_nom']){
+            return true;
+            $requete->closeCursor();
+          }
+        }
+        return false;
+      $requete->closeCursor();
+    }
 
     public function getVille1Parcours(){
       $listeVille = array();
@@ -69,17 +67,19 @@ class VilleManager{
 
     public function getVille2Parcours($vil_num){
       $listeVille = array();
-      $sql = 'select distinct vil_num, vil_nom FROM ville v ,parcours p where p.vil_num2 =v.vil_num and p.vil_num1 ="'.$vil_num.'"
+      $sql = 'select distinct v.vil_num, v.vil_nom FROM ville v ,parcours p where p.vil_num2 =v.vil_num and p.vil_num1 ="'.$vil_num.'"
               UNION
-              select distinct vil_num, vil_nom FROM ville v ,parcours p where p.vil_num2 =v.vil_num and p.vil_num2 ="'.$vil_num.'"';
+              select distinct v.vil_num, v.vil_nom FROM ville v ,parcours p where p.vil_num1 =v.vil_num and p.vil_num2 ="'.$vil_num.'"';
      $requete = $this->db->prepare($sql);
      $requete->execute();
-     while ($ville = $requete->fetch(PDO::FETCH_ASSOC))
+     while ($ville = $requete->fetch(PDO::FETCH_ASSOC)){
+       if($ville["vil_num"] != $vil_num){
          $listeVille[] = $ville;
-
+       }
+       }
      $requete->closeCursor();
      return $listeVille;
     }
 
-    
+
 }

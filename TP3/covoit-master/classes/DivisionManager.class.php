@@ -29,20 +29,6 @@ class DivisionManager{
             $requete->closeCursor();
             return $listeDiv;
 					}
-    public function getDivRentre(){
-      $listeDiv = array();
-      $compteur =0;
-  		$sql = 'select div_num,div_nom FROM division';
+  
 
-      $requete = $this->db->prepare($sql);
-      $requete->execute();
-
-      while ($division = $requete->fetch(PDO::FETCH_OBJ)){
-          $listeDiv[] = new Division($division);
-          $compteur = $compteur + 1;
-        }
-      $requete->closeCursor();
-      return $compteur;
-    }
-    
 }

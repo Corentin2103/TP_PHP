@@ -18,6 +18,38 @@ class ProposeManager{
           $retour=$requete->execute();
           return $retour;
       }
+      public function getAllVilleDepart(){
 
+        $listeParNum = array();
+        $listeVilleNum = array();
+        $sql = 'select distinct par_num,pro_sens FROM propose';
+
+        $requete = $this->db->prepare($sql);
+        $requete->execute();
+
+        while ($par_num = $requete->fetch(PDO::FETCH_ASSOC)){
+          if($par_num["pro_sens"] = 1){
+            $sql2 = 'select distinct vil_num2 as vil_num FROM parcours where par_num="'.$par_num["par_num"].'"';
+            $requete2 = $this->db->prepare($sql2);
+            $requete2->execute();
+            while ($vil_num = $requete2->fetch(PDO::FETCH_ASSOC)){
+            $listeVilleNum[] = $vil_num;
+            }
+          }
+          if($par_num["pro_sens"] = 0){
+            $sql2 = 'select distinct vil_num1 as vil_num FROM parcours where par_num="'.$par_num["par_num"].'"';
+            $requete2 = $this->db->prepare($sql2);
+            $requete2->execute();
+            while ($vil_num = $requete2->fetch(PDO::FETCH_ASSOC)){
+            $listeVilleNum[] = $vil_num;
+            }
+          }
+
+          }
+          print_r($listeVilleNum);
+        $requete->closeCursor();
+        $requete2->closeCursor();
+        return $listeVilleNum;
+      }
 
 }

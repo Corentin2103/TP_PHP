@@ -31,21 +31,7 @@ class SalarieManager{
             return $listeSal;
 					}
 
-    public function getSalRentree(){
-      $listeSal = array();
-      $compteur =0;
-        $sql = 'select per_num, sal_telprof , fon_num FROM salarie';
-
-      $requete = $this->db->prepare($sql);
-      $requete->execute();
-
-      while ($salarie = $requete->fetch(PDO::FETCH_OBJ)){
-          $listeSal[] = new Salarie($salarie);
-          $compteur = $compteur + 1;
-        }
-      $requete->closeCursor();
-      return $compteur;
-    }
+    
 
     public function EstPresent($pers_num){
       $sql = 'select per_num FROM salarie WHERE per_num= "'.$pers_num.'"';

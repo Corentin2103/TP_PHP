@@ -36,8 +36,8 @@ if (empty($_POST["per_login"]) && empty($_POST["per_pwd"]) && empty($_POST["vali
 <h1>Pour vous connecter</h1>
 <form action ="" method = "post" id = "AjouterVille">
 
-      Nom d'utilisateur : <input type="text" id="per_login" name="per_login">
-      Mot de passe : <input type="password" id="per_pwd" name="per_pwd">
+      <label>Nom d'utilisateur :<br/> </label><input type="text" id="input" name="per_login"><br/>
+    <label>Mot de passe :<br/> </label><input type="password" id="input" name="per_pwd"><br/>
       <?php
       $_SESSION["aleatoire2"] = rand(1, 9);
       $_SESSION["aleatoire1"] = rand(1, 9);
@@ -45,8 +45,8 @@ if (empty($_POST["per_login"]) && empty($_POST["per_pwd"]) && empty($_POST["vali
 
       ?>
       <img src="image/nb/<?php echo $_SESSION["aleatoire1"] ?>.jpg" alt="" />+
-      <img src="image/nb/<?php echo $_SESSION["aleatoire2"] ?>.jpg" alt="" />=
-      <input type="text" id="validation" name="validation">
+      <img src="image/nb/<?php echo $_SESSION["aleatoire2"] ?>.jpg" alt="" />=<br/>
+      <input type="text" id="validation" name="validation"><br/>
       <input type="submit" id="Valider" value="Valider">
 
 </form>

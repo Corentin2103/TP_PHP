@@ -4,11 +4,11 @@
   $db = new MyPdo();
   $parcoursManager = new ParcoursManager($db);
   $listeParcours = $parcoursManager -> getAllParcours();
-  $compteur = $parcoursManager -> getParcoursRentre();
+  
 
 ?>
 <?php
-echo "Actuellement ".$compteur." parcour(s) enregistré(s)"
+echo "Actuellement ".count($listeParcours)." parcour(s) enregistré(s)"
  ?>
 
  <table>

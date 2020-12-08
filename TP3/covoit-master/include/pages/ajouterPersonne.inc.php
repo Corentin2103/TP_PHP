@@ -6,6 +6,7 @@
   $listeDep = $departementManager -> getAllDep();
   $fonctionManager = new FonctionManager($db);
   $listeFon = $fonctionManager -> getAllFonction();
+  $villeManager = new VilleManager($db);
   ?>
 
   <?php
@@ -17,26 +18,28 @@
    ?>
      <h1>Ajouter une personne</h1>
      <form action ="#" method = "post" id = "AjouterPersonne">
-
-          Nom : <input type="text" id="per_nom" name="per_nom">
-          Prenom : <input type="text" id="per_prenom" name="per_prenom"></br>
-          Téléphone : <input type="tel" id="per_tel" name="per_tel">
-          Mail : <input type="Mail" id="per_mail" name="per_mail"></br>
-          Login : <input type="text" id="per_login" name="per_login">
-          Mot de passe : <input type="password" id="per_pwd" name="per_pwd"></br>
-          catégorie : <input type="radio" name="Categorie" id="Etudiant" value="Etu" /> Etudiant
-                      <input type="radio" name="Categorie" id="Personnel" value="Perso" /> Personnel</br>
+       <div id="float">
+          <label><span>Nom :</span></label><input type="text" id="input" name="per_nom">
+          <label><span>Prenom :</span></label> <input type="text" id="input" name="per_prenom"></br>
+          <label><span>Téléphone :</span></label> <input type="tel" id="input" name="per_tel">
+          <label><span>Mail :</span></label><input type="Mail" id="input" name="per_mail"></br>
+          <label><span>Login :</span></label><input type="text" id="input" name="per_login">
+          <label><span>Mot de passe :</span></label><input type="password" id="input" name="per_pwd"></br>
+          <label id="milieu">Catégorie :</label> <input type="radio" name="Categorie" id="Etu" value="Etu" /> <label  id="">Etudiant</label>
+                      <input type="radio" name="Categorie" id="Perso" value="Perso" /> <label id="">Personnel</label></br>
+          <div id="milieu2">
           <input type="submit" id="Valider" value="Valider">
-
+          </div>
+        </div>
     </form>
   <?php
 
 
   }
   ?>
-  <?php
+<?php
   /*Ajouter un etudiant*/
-  ?>
+?>
   <?php
   if (!empty($_POST["Categorie"]) && $_POST["Categorie"] == "Etu" && empty($_POST["departement"]) && empty($_POST["annee"]))
   {
@@ -48,9 +51,12 @@
 
     <form action ="#" method = "post" id = "FormEtudiant">
     <label>Année :</label>
-        <select class="champ" id="annee" name="annee" >
-          <?php foreach ($listeDiv as $div)
-          { ?>
+        <select class="champ" id="input" name="annee" >
+          <?php
+          foreach ($listeDiv as $div)
+          {
+
+            ?>
                     <option value="<?php echo $div->getDivNum() ?>">
                                    <?php echo $div->getDivNom() ?></option>
           <?php
@@ -58,11 +64,11 @@
         </select></br>
 
     <label>Département :</label>
-        <select class="champ" id="departement" name="departement" >
+        <select class="champ" id="input" name="departement" >
           <?php foreach ($listeDep as $departement)
           { ?>
                     <option value="<?php echo $departement->getDepNum() ?>">
-                                   <?php echo $departement->getDepNom() ?></option>
+                                   <?php echo $departement->getDepNom()." (".$villeManager->getVilleNom($departement->getVilleNum())["vil_nom"].")" ?></option>
           <?php
           } ?>
             </select></br>
@@ -73,7 +79,7 @@
 
   ?>
 
-  <?php
+<?php
   /*Ajouter un personnel*/
   ?>
   <?php
@@ -88,11 +94,11 @@
     <form action ="#" method = "post" id = "FormSalarie">
     <label>Téléphone professionnel :</label>
 
-          <input type="tel" id="sal_telprof" name="sal_telprof">
+          <input type="tel" id="input" name="sal_telprof">
         </br>
 
     <label>Fonction :</label>
-        <select class="champ" id="fon_num" name="fon_num" >
+        <select class="champ" id="input" name="fon_num" >
           <?php foreach ($listeFon as $fonction)
           { ?>
                     <option value="<?php echo $fonction->getFonNum() ?>">

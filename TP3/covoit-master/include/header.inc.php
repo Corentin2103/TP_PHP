@@ -16,8 +16,8 @@ if(empty($_SESSION["estConnecte"])){
 		<title>
 		<?php echo $title ?>
 		</title>
-
 <link rel="stylesheet" type="text/css" href="css/stylesheet.css" />
+
 </head>
 	<body>
 	<div id="header">
@@ -46,3 +46,4 @@ if(empty($_SESSION["estConnecte"])){
   }
     ?>
 	</div>
+</body>

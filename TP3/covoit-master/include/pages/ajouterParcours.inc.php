@@ -18,7 +18,7 @@
   <h1>Ajouter un parcours</h1>
   <form action ="#" method = "post" id = "FormParcours">
       <label>Ville 1 :</label>
-          <select class="champ" id="vil_num1" name="vil_num1" >
+          <select class="champ" id="input" name="vil_num1" >
             <?php foreach ($listeVille as $ville){ ?>
                       <option value="<?php echo $ville->getVilleNum() ?>">
           						               <?php echo $ville->getVilleNom() ?></option>
@@ -26,7 +26,7 @@
           </select>
 
       <label>Ville 2 :</label>
-          <select class="champ" id="vil_num2" name="vil_num2" >
+          <select class="champ" id="input" name="vil_num2" >
             <?php foreach ($listeVille as $ville){ ?>
                       <option value="<?php echo $ville->getVilleNum() ?>">
           						               <?php echo $ville->getVilleNom() ?></option>
@@ -34,7 +34,7 @@
           </select>
 
 
-            Nombre de kilomètre(s) : <input type="number" id="par_km" name="par_km"></br>
+            <label>Nombre de kilomètre(s) :</label> <input type="number" id="input" name="par_km"></br>
             <input type="submit" id="Valider" value="Valider">
 
   </form>

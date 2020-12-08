@@ -34,21 +34,7 @@ class PersonneManager{
             $requete->closeCursor();
             return $listePers;
 					}
-    public function getPersRentree(){
-      $listePers = array();
-      $compteur =0;
-      $sql = 'select per_num, per_nom , per_prenom FROM personne';
-
-      $requete = $this->db->prepare($sql);
-      $requete->execute();
-
-      while ($personne = $requete->fetch(PDO::FETCH_OBJ)){
-          $listePers[] = new Personne($personne);
-          $compteur = $compteur + 1;
-        }
-      $requete->closeCursor();
-      return $compteur;
-    }
+  
 
     public function RecupPers($pers_num){
         $recupPers = array();

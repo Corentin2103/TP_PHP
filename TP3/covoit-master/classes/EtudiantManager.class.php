@@ -30,21 +30,7 @@ class EtudiantManager{
             $requete->closeCursor();
             return $listeEtu;
 					}
-    public function getEtuRentree(){
-      $listeEtu = array();
-      $compteur =0;
-      $sql = 'select per_num, dep_num , div_num FROM etudiant';
-
-      $requete = $this->db->prepare($sql);
-      $requete->execute();
-
-      while ($etudiant = $requete->fetch(PDO::FETCH_OBJ)){
-          $listeEtu[] = new Etudiant($etudiant);
-          $compteur = $compteur + 1;
-        }
-      $requete->closeCursor();
-      return $compteur;
-    }
+    
 
 
     public function EstPresent($pers_num){
