@@ -75,4 +75,20 @@ class ParcoursManager{
       $requete->execute();
       return $requete->fetch();
     }
+
+
+    public function estPresent($vil_num1,$vil_num2){
+      $sql ='select distinct par_num FROM parcours WHERE vil_num1="'.$vil_num1.'" and vil_num2="'.$vil_num2.'"';
+      $sql2 = 'select distinct par_num FROM parcours WHERE vil_num2= "'.$vil_num1.'" and vil_num1="'.$vil_num2.'"';
+      $requete = $this->db->prepare($sql);
+      $requete->execute();
+      while ($par_num = $requete->fetch(PDO::FETCH_ASSOC)){
+          if(is_null($par_num)){
+            return false;
+            $requete->closeCursor();
+          }
+        }
+        return true;
+      $requete->closeCursor();
+    }
 }

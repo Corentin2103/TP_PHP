@@ -10,21 +10,21 @@
   ?>
 
   <?php
-  if (empty ($_POST["per_nom"]) && empty ($_POST["per_prenom"]) && empty ($_POST["per_tel"]) && empty ($_POST["per_mail"])
-  && empty ($_POST["per_login"]) && empty ($_POST["per_pwd"]) && empty($_POST["Categorie"]) && empty($_POST["annee"])
-  && empty($_POST["departement"])&& empty($_POST["fon_num"])
-  && empty($_POST["sal_telprof"]))
+  if (empty ($_POST["per_nom"]) || empty ($_POST["per_prenom"]) || empty ($_POST["per_tel"]) || empty ($_POST["per_mail"])
+  || empty ($_POST["per_login"]) || empty ($_POST["per_pwd"]) || empty($_POST["annee"])
+  || empty($_POST["departement"]) || empty($_POST["fon_num"])
+  || empty($_POST["sal_telprof"]))
   {
    ?>
      <h1>Ajouter une personne</h1>
      <form action ="#" method = "post" id = "AjouterPersonne">
        <div id="float">
-          <label><span>Nom :</span></label><input type="text" id="input" name="per_nom">
-          <label><span>Prenom :</span></label> <input type="text" id="input" name="per_prenom"></br>
-          <label><span>Téléphone :</span></label> <input type="tel" id="input" name="per_tel">
-          <label><span>Mail :</span></label><input type="Mail" id="input" name="per_mail"></br>
-          <label><span>Login :</span></label><input type="text" id="input" name="per_login">
-          <label><span>Mot de passe :</span></label><input type="password" id="input" name="per_pwd"></br>
+          <label><span id="ranger">Nom :</span></label><input type="text" id="input" name="per_nom">
+          <label id="milieu4"><span id="ranger">Prenom :</span></label> <input type="text" id="input" name="per_prenom"></br>
+          <label><span id="ranger">Téléphone :</span></label> <input type="tel" id="input" name="per_tel">
+          <label id="milieu4"><span id="ranger">Mail :</span></label><input type="Mail" id="input" name="per_mail"></br>
+          <label><span id="ranger">Login :</span></label><input type="text" id="input" name="per_login">
+          <label id="milieu4"><span id="ranger">Mot de passe :</span></label><input type="password" id="input" name="per_pwd"></br>
           <label id="milieu">Catégorie :</label> <input type="radio" name="Categorie" id="Etu" value="Etu" /> <label  id="">Etudiant</label>
                       <input type="radio" name="Categorie" id="Perso" value="Perso" /> <label id="">Personnel</label></br>
           <div id="milieu2">
@@ -41,7 +41,9 @@
   /*Ajouter un etudiant*/
 ?>
   <?php
-  if (!empty($_POST["Categorie"]) && $_POST["Categorie"] == "Etu" && empty($_POST["departement"]) && empty($_POST["annee"]))
+  if (!empty($_POST["Categorie"]) && $_POST["Categorie"] == "Etu" && empty($_POST["departement"]) && empty($_POST["annee"]) && !empty ($_POST["per_nom"]) && !empty ($_POST["per_prenom"])
+  && !empty ($_POST["per_tel"]) && !empty ($_POST["per_mail"])
+  && !empty ($_POST["per_login"]) && !empty ($_POST["per_pwd"]))
   {
     $personne = new Personne($_POST);
     $_SESSION["personne"]=serialize($personne);
@@ -83,7 +85,9 @@
   /*Ajouter un personnel*/
   ?>
   <?php
-  if (!empty($_POST["Categorie"]) && $_POST["Categorie"] == "Perso" && empty($_POST["sal_telprof"]) && empty($_POST["fon_num"]))
+  if (!empty($_POST["Categorie"]) && $_POST["Categorie"] == "Perso" && empty($_POST["sal_telprof"]) && empty($_POST["fon_num"]) && !empty ($_POST["per_nom"]) && !empty ($_POST["per_prenom"])
+  && !empty ($_POST["per_tel"]) && !empty ($_POST["per_mail"])
+  && !empty ($_POST["per_login"]) && !empty ($_POST["per_pwd"]))
   {
     $personne = new Personne($_POST);
     $_SESSION["personne"]=serialize($personne);
@@ -129,7 +133,10 @@
               $etudiant->setPersNum($num_pers);
               $etudiant->setDivNum($_POST["annee"]);
               $etudiant->setDepNum($_POST["departement"]);
-              echo "la personne a été ajoutée";
+              ?>
+              <label><img src="image/valid.png" alt="Logo covoiturage IUT" title="Logo covoiturage IUT Limousin" /><?php echo "la personne a été ajoutée" ?></label>
+
+              <?php
               $retour=$etudiantManager->add($etudiant);
             }
             if (!empty($_POST["fon_num"]) && !empty($_POST["sal_telprof"])){
@@ -138,7 +145,10 @@
               $salarie->setPersNum($num_pers);
               $salarie->setSalTelProf($_POST["sal_telprof"]);
               $salarie->setFonNum($_POST["fon_num"]);
-              echo "la personne a été ajoutée";
+              ?>
+              <label><img src="image/valid.png" alt="Logo covoiturage IUT" title="Logo covoiturage IUT Limousin" /><?php echo "la personne a été ajoutée" ?></label>
+
+              <?php
               $retour=$salarieManager->add($salarie);
             }
 
