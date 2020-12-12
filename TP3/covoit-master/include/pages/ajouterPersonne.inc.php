@@ -10,10 +10,10 @@
   ?>
 
   <?php
-  if (empty ($_POST["per_nom"]) || empty ($_POST["per_prenom"]) || empty ($_POST["per_tel"]) || empty ($_POST["per_mail"])
-  || empty ($_POST["per_login"]) || empty ($_POST["per_pwd"]) || empty($_POST["annee"])
-  || empty($_POST["departement"]) || empty($_POST["fon_num"])
-  || empty($_POST["sal_telprof"]))
+  if (empty ($_POST["per_nom"]) && empty ($_POST["per_prenom"]) && empty ($_POST["per_tel"]) && empty ($_POST["per_mail"])
+  && empty ($_POST["per_login"]) && empty ($_POST["per_pwd"]) && empty($_POST["annee"])
+  && empty($_POST["departement"]) && empty($_POST["fon_num"])
+  && empty($_POST["sal_telprof"]))
   {
    ?>
      <h1>Ajouter une personne</h1>

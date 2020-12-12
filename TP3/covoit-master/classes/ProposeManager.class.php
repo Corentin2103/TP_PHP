@@ -18,26 +18,33 @@ class ProposeManager{
           $retour=$requete->execute();
           return $retour;
       }
-      public function getAllTrajet($vil_num1,$vil_num2,$pro_sens){
+      public function getAllTrajet($vil_num1,$vil_num2,$pro_sens,$date,$jour,$heure){
               $listeTrajet = array();
-
-
-              $sens = $parcoursManager->getSens($vil_num1,$vil_num2);
-              if($sens == 1){
-              $sql = 'select distinct vil_num1,vil_num2,pro_date, pro_time, pro_place,per_num FROM parcours pa, propose p wherep.par_num=pa.par_num and vil_num1="'.$vil_num2.'" and vil_num2 = "'.$vil_num1.'" ';
+              $heure = $heure -1;
+              $jour =$jour -1;
+              if($pro_sens == 1){
+              $sql = 'select distinct vil_num1,vil_num2,pro_date, pro_time, pro_place,per_num
+              FROM parcours pa, propose p
+              where p.par_num=pa.par_num and vil_num1="'.$vil_num2.'" and vil_num2 = "'.$vil_num1.'"
+                    and pro_time >=\''.$heure.':00:00\' and pro_date between \''.$date.'\' and \''.addJours($date, $jour).'\'';
               }
-              if($sens == 0){
-              $sql = 'select distinct vil_num1,vil_num2,pro_date, pro_time, pro_place,per_num FROM parcours pa, propose p wherep.par_num=pa.par_num and vil_num1="'.$vil_num1.'" and vil_num2 = "'.$vil_num2.'" ';
+              if($pro_sens == 0){
+                $sql = 'select distinct vil_num1,vil_num2,pro_date, pro_time, pro_place,per_num
+                FROM parcours pa, propose p
+                where p.par_num=pa.par_num and vil_num1="'.$vil_num1.'" and vil_num2 = "'.$vil_num2.'"
+                      and pro_time >=\''.$heure.':00:00\' and pro_date between \''.$date.'\' and \''.addJours($date, $jour).'\'';
               }
+
               $requete = $this->db->prepare($sql);
               $requete->execute();
-
-              while ($trajet = $requete->fetch(PDO::FETCH_ASSOC))
-                  $listeTrajet[] = $ville;
-
+              while ($trajet = $requete->fetch(PDO::FETCH_ASSOC)){
+                  $listeTrajet[] = $trajet;
+                }
               $requete->closeCursor();
               return $listeTrajet;
             }
+
+
       public function getAllVilleDepart(){
 
         $listeParNum = array();

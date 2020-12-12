@@ -7,12 +7,17 @@ $db = new MyPdo();
 $personneManager = new PersonneManager($db);
 
 if(!empty($_POST["per_login"]) && !empty($_POST["per_pwd"]) && !empty($_POST["validation"])
-    &&  $_POST["validation"]==$_SESSION['result'] && $personneManager->EstPresent($_POST["per_login"],$_POST["per_pwd"])){
+    &&  $_POST["validation"]==$_SESSION['result']
+    && $personneManager->EstPresent($_POST["per_login"],$_POST["per_pwd"])){
   $_SESSION["estConnecte"]= true;
   $_SESSION["Login"] = $_POST["per_login"];
   header("Location: index.php");
 }
-
+if(!empty($_POST["per_login"]) && !empty($_POST["per_pwd"]) && !empty($_POST["validation"])
+    &&  $_POST["validation"]==$_SESSION['result'] && !$personneManager->EstPresent($_POST["per_login"],$_POST["per_pwd"])){?>
+      <label>Mot de passe ou login incorrect</label>
+  <?php
+}
 
 //MESSAGE D'ERREUR
 if(empty($_POST["per_login"]) && !empty($_POST["per_pwd"]) && !empty($_POST["validation"]) &&  $_POST["validation"]==$_SESSION['result']){?>
@@ -58,7 +63,7 @@ if (empty($_POST["per_login"]) && empty($_POST["per_pwd"]) && empty($_POST["vali
 <form action ="" method = "post" id = "AjouterVille">
 
       <label>Nom d'utilisateur :<br/> </label><input type="text" id="input" name="per_login"><br/>
-    <label>Mot de passe :<br/> </label><input type="password" id="input" name="per_pwd"><br/>
+      <label>Mot de passe :<br/> </label><input type="password" id="input" name="per_pwd"><br/>
       <?php
       $_SESSION["aleatoire2"] = rand(1, 9);
       $_SESSION["aleatoire1"] = rand(1, 9);

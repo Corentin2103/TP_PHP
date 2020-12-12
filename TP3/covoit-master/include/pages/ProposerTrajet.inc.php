@@ -78,7 +78,6 @@ if(!empty($_POST["vil_num2"])&& !empty($_POST["DateDep"])&& !empty($_POST["Heure
    <?php
 }else{
   ?>
-  <label><img src="image/erreur.png" alt="Logo covoiturage IUT" title="Logo covoiturage IUT Limousin" /><?php echo "Toutes les informations n'ont pas été renseignées" ?></label>
 
   <?php
 }
