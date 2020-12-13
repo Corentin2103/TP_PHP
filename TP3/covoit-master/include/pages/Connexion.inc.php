@@ -72,7 +72,7 @@ if (empty($_POST["per_login"]) && empty($_POST["per_pwd"]) && empty($_POST["vali
       ?>
       <img src="image/nb/<?php echo $_SESSION["aleatoire1"] ?>.jpg" alt="" /><label id="Police">+</label>
       <img src="image/nb/<?php echo $_SESSION["aleatoire2"] ?>.jpg" alt="" /><label id="Police">=</label><br/>
-      <input type="text" id="validation" name="validation"><br/>
+      <input type="text" id="input" name="validation"><br/>
       <input type="submit" id="Valider" value="Valider">
 
 </form>

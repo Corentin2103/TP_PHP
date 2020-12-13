@@ -2,6 +2,7 @@
 
 if(empty($_SESSION["estConnecte"])){
   $_SESSION["estConnecte"]= false;
+  $_SESSION["Login"] ="";
 }
  ?>
 <!doctype html>

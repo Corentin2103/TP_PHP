@@ -10,10 +10,10 @@
   ?>
 
   <?php
-  if (empty ($_POST["per_nom"]) && empty ($_POST["per_prenom"]) && empty ($_POST["per_tel"]) && empty ($_POST["per_mail"])
-  && empty ($_POST["per_login"]) && empty ($_POST["per_pwd"]) && empty($_POST["annee"])
+  if (empty ($_POST["per_nom"]) || empty ($_POST["per_prenom"]) || empty ($_POST["per_tel"]) || empty ($_POST["per_mail"])
+  || empty ($_POST["per_login"]) || empty ($_POST["per_pwd"]) && (empty($_POST["annee"])
   && empty($_POST["departement"]) && empty($_POST["fon_num"])
-  && empty($_POST["sal_telprof"]))
+  && empty($_POST["sal_telprof"])))
   {
    ?>
      <h1>Ajouter une personne</h1>
@@ -122,36 +122,47 @@
 
 
 
-        if ((!empty($_POST["annee"]) && !empty($_POST["departement"]))||(!empty($_POST["fon_num"]) && !empty($_POST["sal_telprof"])))
+        if ((!empty($_POST["annee"]) && !empty($_POST["departement"]))||(!empty($_POST["fon_num"]) && !empty($_POST["sal_telprof"]))
+         && empty ($_POST["per_nom"]) && empty ($_POST["per_prenom"]) && empty ($_POST["per_tel"]) && empty ($_POST["per_mail"])
+        && empty ($_POST["per_login"]) && empty ($_POST["per_pwd"]))
         {
-          $personne = unserialize($_SESSION["personne"]);
           $personneManager = new PersonneManager($db);
-          $num_pers=$personneManager->add($personne);
-            if (!empty($_POST["annee"]) && !empty($_POST["departement"])){
-              $etudiantManager = new EtudiantManager($db);
-              $etudiant = new Etudiant($_POST);
-              $etudiant->setPersNum($num_pers);
-              $etudiant->setDivNum($_POST["annee"]);
-              $etudiant->setDepNum($_POST["departement"]);
-              ?>
-              <label><img src="image/valid.png" alt="Logo covoiturage IUT" title="Logo covoiturage IUT Limousin" /><?php echo "la personne a été ajoutée" ?></label>
+          $personne = unserialize($_SESSION["personne"]);
+          if(!$personneManager->EstPresentLogin($personne->getPersLogin())){
 
+            $num_pers=$personneManager->add($personne);
+              if (!empty($_POST["annee"]) && !empty($_POST["departement"])
+              && empty ($_POST["per_nom"]) && empty ($_POST["per_prenom"]) && empty ($_POST["per_tel"]) && empty ($_POST["per_mail"])
+              && empty ($_POST["per_login"]) && empty ($_POST["per_pwd"])){
+                $etudiantManager = new EtudiantManager($db);
+                $etudiant = new Etudiant($_POST);
+                $etudiant->setPersNum($num_pers);
+                $etudiant->setDivNum($_POST["annee"]);
+                $etudiant->setDepNum($_POST["departement"]);
+                ?>
+                <label><img src="image/valid.png" alt="Logo covoiturage IUT" title="Logo covoiturage IUT Limousin" /><?php echo "la personne a été ajoutée" ?></label>
+
+                <?php
+                $retour=$etudiantManager->add($etudiant);
+              }
+              if (!empty($_POST["fon_num"]) && !empty($_POST["sal_telprof"])
+              && empty ($_POST["per_nom"]) && empty ($_POST["per_prenom"]) && empty ($_POST["per_tel"]) && empty ($_POST["per_mail"])
+              && empty ($_POST["per_login"]) && empty ($_POST["per_pwd"])){
+                $salarieManager = new SalarieManager($db);
+                $salarie = new Salarie($_POST);
+                $salarie->setPersNum($num_pers);
+                $salarie->setSalTelProf($_POST["sal_telprof"]);
+                $salarie->setFonNum($_POST["fon_num"]);
+                ?>
+                <label><img src="image/valid.png" alt="Logo covoiturage IUT" title="Logo covoiturage IUT Limousin" /><?php echo "la personne a été ajoutée" ?></label>
+
+                <?php
+                $retour=$salarieManager->add($salarie);
+              }
+            }else{?>
+              <label><img src="image/erreur.png" alt="Logo covoiturage IUT" title="Logo covoiturage IUT Limousin" /><?php echo "Login déjà utilisé" ?></label>
               <?php
-              $retour=$etudiantManager->add($etudiant);
             }
-            if (!empty($_POST["fon_num"]) && !empty($_POST["sal_telprof"])){
-              $salarieManager = new SalarieManager($db);
-              $salarie = new Salarie($_POST);
-              $salarie->setPersNum($num_pers);
-              $salarie->setSalTelProf($_POST["sal_telprof"]);
-              $salarie->setFonNum($_POST["fon_num"]);
-              ?>
-              <label><img src="image/valid.png" alt="Logo covoiturage IUT" title="Logo covoiturage IUT Limousin" /><?php echo "la personne a été ajoutée" ?></label>
-
-              <?php
-              $retour=$salarieManager->add($salarie);
-            }
-
 
         }
       ?>

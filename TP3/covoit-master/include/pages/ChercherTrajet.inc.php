@@ -1,4 +1,7 @@
+<?php
 
+if($_SESSION["estConnecte"]){
+  ?>
 <h1>Rechercher un trajet</h1>
 <?php
 $db = new MyPdo();
@@ -85,7 +88,7 @@ $personneManager = new PersonneManager($db);
                                                 );
 
 
-
+  if(!empty($listeTrajet)){
     ?>
     <table>
       <tr><th>Ville départ</th><th>Ville arrivée</th><th>Date départ</th><th>Heure départ</th><th>Nombre de place(s)</th><th>Nom du covoitureur</th>
@@ -103,5 +106,13 @@ $personneManager = new PersonneManager($db);
             <?php } ?>
     </table>
   <?php
-  }
+}else{?>
+  <label> <img src="image/erreur.png" alt="Logo covoiturage IUT" title="Logo covoiturage IUT Limousin" /><?php echo "Aucun trajet trouvé"; ?></label>
+  <?php
+}
+}
+}else{
+header("Location: index.php");
+
+}
   ?>
