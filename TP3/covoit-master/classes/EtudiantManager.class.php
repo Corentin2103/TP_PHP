@@ -30,7 +30,7 @@ class EtudiantManager{
             $requete->closeCursor();
             return $listeEtu;
 					}
-    
+
 
 
     public function EstPresent($pers_num){
@@ -50,22 +50,12 @@ class EtudiantManager{
     }
     public function RecupEtudiant($pers_num){
 
-      $sql = 'select dep_num FROM etudiant WHERE per_num= "'.$pers_num.'"';
+      $sql = 'select dep_num,div_num FROM etudiant WHERE per_num= "'.$pers_num.'"';
       $requete = $this->db->prepare($sql);
       $requete->execute();
       return $requete->fetch();
     }
-    public function RecupSalarie($pers_num){
-      $recupEtu = array();
-      $sql = 'select dep_num FROM etudiant WHERE per_num= "'.$pers_num.'"';
-      $requete = $this->db->prepare($sql);
-      $requete->execute();
-      while ($etudiant = $requete->fetch(PDO::FETCH_ASSOC)){
-          $recupEtu[] = $etudiant;
-        }
-        $requete->closeCursor();
-        return $recupEtu;
-    }
+
 
 
 }
