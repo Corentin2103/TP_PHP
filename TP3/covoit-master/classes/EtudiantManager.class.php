@@ -55,7 +55,16 @@ class EtudiantManager{
       $requete->execute();
       return $requete->fetch();
     }
-
+    public function updateEtudiant($etudiant){
+      $sql ='UPDATE etudiant SET dep_num= :dep_num , div_num =:div_num where per_num= :per_num ';
+      $requete = $this->db->prepare($sql);
+      $requete->bindValue(':dep_num',$etudiant->getDepNum());
+      $requete->bindValue(':div_num',$etudiant->getdivNum());
+      $requete->bindValue(':per_num',$etudiant->getPersNum());
+      $retour = $requete->execute();
+      $requete->closeCursor();
+      return $retour;
+    }
 
 
 }

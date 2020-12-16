@@ -29,6 +29,12 @@ class DivisionManager{
             $requete->closeCursor();
             return $listeDiv;
 					}
-  
+    public function getDivNom($div_num){
+      $sql = 'select div_nom FROM division WHERE div_num= "'.$div_num.'"';
+      $requete = $this->db->prepare($sql);
+      $requete->execute();
+      return $requete->fetch();
+    }
+
 
 }

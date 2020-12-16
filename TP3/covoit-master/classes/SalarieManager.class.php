@@ -31,7 +31,7 @@ class SalarieManager{
             return $listeSal;
 					}
 
-    
+
 
     public function EstPresent($pers_num){
       $sql = 'select per_num FROM salarie WHERE per_num= "'.$pers_num.'"';
@@ -59,5 +59,15 @@ class SalarieManager{
         }
         $requete->closeCursor();
         return $recupSal;
+    }
+    public function updateSalarie($salarie){
+      $sql ='UPDATE salarie SET sal_telprof= :sal_telprof , fon_num =:fon_num where per_num= :per_num ';
+      $requete = $this->db->prepare($sql);
+      $requete->bindValue(':sal_telprof',$salarie->getSalTelProf());
+      $requete->bindValue(':fon_num',$salarie->getFonNum());
+      $requete->bindValue(':per_num',$salarie->getPersNum());
+      $retour = $requete->execute();
+      $requete->closeCursor();
+      return $retour;
     }
 }

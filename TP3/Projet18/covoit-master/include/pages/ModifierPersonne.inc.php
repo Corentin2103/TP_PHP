@@ -156,7 +156,7 @@ if(empty($_GET["num_pers"])){
                 $NouveauEtudiant->setPersNum($_GET["num_pers"]);
                 $NouveauEtudiant->setDepNum($_POST["departement"]);
                 $NouveauEtudiant->setdivNum($_POST["annee"]);
-                $etudiantManager->updateSalarie($NouveauEtudiant);
+                $etudiantManager->updateEtudiant($NouveauEtudiant);
                 $personneManager->updatePersonne($NouveauPersonne);
 
               }

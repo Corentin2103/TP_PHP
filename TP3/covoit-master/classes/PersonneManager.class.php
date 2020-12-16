@@ -155,4 +155,18 @@ class PersonneManager{
       $requete5->closeCursor();
       return $requete1;
     }
+    public function updatePersonne($personne){
+      $sql ='UPDATE personne SET per_nom=:per_nom,per_prenom=:per_prenom,per_tel=:per_tel,per_mail=:per_mail,per_login=:per_login,per_pwd=:per_pwd where per_num= :per_num ';
+      $requete = $this->db->prepare($sql);
+      $requete->bindValue(':per_num',$personne->getPersNum());
+      $requete->bindValue(':per_nom',$personne->getPersNom());
+      $requete->bindValue(':per_prenom',$personne->getPersPrenom());
+      $requete->bindValue(':per_tel',$personne->getPersTel());
+      $requete->bindValue(':per_mail',$personne->getPersMail());
+      $requete->bindValue(':per_login',$personne->getPersLogin());
+      $requete->bindValue(':per_pwd',$personne->getPersPwd());
+      $retour = $requete->execute();
+      $requete->closeCursor();
+      return $retour;
+    }
   }
